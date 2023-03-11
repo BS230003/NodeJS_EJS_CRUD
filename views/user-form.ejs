@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<!--====form section start====-->
+<div class="user-detail">
+    <h2> Operation (CRUD) data to MongoDB using Node JS, Mongoose, Express and EJS</h2>
+    <hr>  <h1>New Record</h1> 
+
+    <form action="/create" enctype="multipart/form-data" method="POST">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter Name" name="name" required >
+          <label>Age</label>
+          <input type="text" placeholder="Enter Age" name="marks" required>
+          <label>Image</label>
+          <!-- <input type="text" placeholder="Enter File" name="imagePath" required> -->
+          <input type="file" placeholder="select file" id="myfileid" name="readfile" required >
+          <button type="submit">Upload Add Record</button>
+
+    </form>
+    <hr>
+<!-- injected to table of read data
+    <form action="/delete" method="POST">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter Full Name" name="name" required >
+        <button type="submit">Delete</button>
+   </form>
+-->
+   <hr> <h2>Upload Image for name and choose file</h2> 
+
+   <form action="/uploadFile" enctype="multipart/form-data" method="POST">
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter Name" name="name" required >
+        <input type="file" placeholder="select file" id="myfileid" name="readfile" required >
+        <button type="submit">Upload</button>
+    </form>
+    
+   <!-- action for reading data -->
+</div>
+<hr>
+
+<!--====form section start====-->
+<h3># Got the listItems output from database read ::   </h3>
+<div>
+    <form action="/readAll" method="POST">
+        <button type="submit">ReadAll</button>
+    </form>
+<!--This is dynamic table for delete action on name based -->
+<form action="/delete" method="POST">
+    <%if (locals.listItems) { %>
+    <table  width="800" border="1">
+        <tr><th>Name</th> <th>Age</th> <th>Image local</th><th>Image from DB</th> </tr>
+        <% listItems.forEach(function(item,index){ %>
+        <tr>
+            <td> <%= item.name  %> </td> <td> <%= item.marks  %></td> 
+            <td> <img width=60 height=40  src="/images/<%= item.imagePath  %>" alt="<%= item.imagePath  %>"></td> 
+            <td> <img width=60 height=40 src="data:image/png;base64,<%=item.imgDataStr%>" alt="DB image missing" > </td>
+            <td>
+                <button type="submit" name="name" value="<%=item.name %>"  > Delete </button> 
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+    <% } %>
+</form>
+</div>
+
+<hr>
+<h3>>user-form.ejs -> pass data to Router -> insert_controllers -> insert_models -> Mongoose -> MongoDB</h3>
+
+    <table border="1">
+    <tr><td>user-form.ejs :</td> 
+        <td>This file CLIENT CODE (FRONT-END), HTML rendering + EJX code with < %= ejs_expressions % > notation, the list iteration for making </td>
+    </tr>
+    <tr><td>insert_routes.js</td> <td>Server side file manages the name of URL access (called routes) </td></tr>
+    <tr><td>insert_controllers.js</td> <td>This file is server side accepting request / response (GET/POST from client </td></tr>
+    <tr><td>insert_models.js </td> <td>This contains the code about actions that need middle-ware access to Database </td></tr>
+    <tr><td>database.js </td> <td>Mongoose connection and access to database. Collection object Students schema is defined </td></tr>
+    <tr><td>app.js</td> <td>Server side main program to launch app using <npm start> </td></tr>
+
+    </table>
+<hr>
+
+<pre> Test for Images Path.. These are picked from 
+        ./APP_ROOT/public/images/*.* mapped (/images/) 
+        or APP_ROOT/uploads/*.* mapped (/uploads/)
+</pre>
+
+<pre>
+    It runs the code from "npm start"
+    An http 3001 is started from Visual Studio Code automatically.  
+        EJS client needs only one port
+        1: Server API starts at 3001 port, client sends request to it.
+
+        This is diffirent than React.
+        React neesds two ports
+            1: 3001 for client <--> server browser calls
+            2: 5000 for the middleware | server <--> Database communication
+
+    It does => Add New Record, Delete Record, Save Image to MongoDB, 
+    Retrieve Image from Mongo DB (base64 form), also a imagePath link to local directory 
+
+
+    static folders image in ejs access
+    ./uploads/** ==> ./uploads/  <img src="./uploads/cat1.png"/>    
+    ./images/** ==> ./public/images/ <img src="./images/cat.png"/> 
+</pre>
+
+<hr>
+An example of red-dot, base64 image direct embedded.
+<img src="data:image/png;base64,iVBORw0KGgoAAA ANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4 //8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU 5ErkJggg==" alt="Red dot" />
+<hr>
+<pre>
+
+    Notes multipart file upload and data in text goes with formidable object. 
+    fields give the forms data (input and others)
+    files give the data about file, file is temporary loaded to %TEMP% directory of server.
+    
+
+</pre>
+
+</body>
+</html>
+
