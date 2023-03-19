@@ -21,13 +21,6 @@
 
     </form>
     <hr>
-<!-- injected to table of read data
-    <form action="/delete" method="POST">
-        <label>Full Name</label>
-        <input type="text" placeholder="Enter Full Name" name="name" required >
-        <button type="submit">Delete</button>
-   </form>
--->
    <hr> <h2>Upload Image for name and choose file</h2> 
 
    <form action="/uploadFile" enctype="multipart/form-data" method="POST">
@@ -97,10 +90,9 @@
         This is diffirent than React.
         React neesds two ports
             1: 3001 for client <--> server browser calls
-            2: 5000 for the middleware | server <--> Database communication
-
-    It does => Add New Record, Delete Record, Save Image to MongoDB, 
-    Retrieve Image from Mongo DB (base64 form), also a imagePath link to local directory 
+        
+            It does => Add New Record, Delete Record, Save Image to MongoDB, 
+            Retrieve Image from Mongo DB (base64 form), also a imagePath link to local directory 
 
 
     static folders image in ejs access

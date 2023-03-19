@@ -1,16 +1,18 @@
 
-
+// you need to find matching mongoose API for the test.
+// check packages.json for the versions
 
 var mongoose=require('mongoose');
 var fs=require('fs');
-
 var db = require('../database');
 const { readAll } = require('../controllers/insert_controller');
 // create an schema
+
+// this resides under mydb/studends collection
 var userSchema = new mongoose.Schema({
             name: String,
             marks: Number,
-            imgData: Buffer,
+            imgData: Buffer, // bin.base64 data
             imagePath : String, 
             contentType:String,
             imgDataStr:String
@@ -66,6 +68,7 @@ module.exports={
       // model can delete data
       //userTable.updateOne({ name: userData.name }, {imgDataStr:userData.fileData}).then(function( data){
          
+         // image data string
          userTable.updateOne ({ "name": userData.name }, 
                 {'imgDataStr':userData.imgDataStr}).then(function( data){
             console.log("models: one updateOne imageData WORKED ? .. ", data.modifiedCount > 0 ? " YES " : " NO "  ); // Success
@@ -75,6 +78,7 @@ module.exports={
             console.log("failed to updateOne", error); // Failure
          });
 
+         // imagepath, can be done in above as well.
          userTable.updateOne ({ "name": userData.name }, 
                 {'imagePath':userData.imagePath}).then(function( data){
             console.log("models: one updateOne imagePATH WORKED ? .. ", data.modifiedCount > 0 ? " YES " : " NO "  ); // Success

@@ -15,7 +15,7 @@ conn.on('error', console.error.bind(console, 'connection error:'));
 
 conn.once ('open', function (){
     console.log ("mongoose db model opened ");
-    // define Schema
+    /* define Schema
     var MarksSchema = mongoose.Schema({
         name: String,
         marks: Number,
@@ -24,7 +24,8 @@ conn.once ('open', function (){
         contentType:String,
         imgDataStr:String
     });        
-    console.log("MongoDB module with Mongoose started.. "); 
+    console.log("MongoDB module with Mongoose started.. "); */
+    
 });
 
 module.exports = conn;
